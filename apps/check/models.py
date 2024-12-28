@@ -9,6 +9,12 @@ class Check(DataTimeAbstract):
         "Общая сумма",
         max_digits=10,
         decimal_places=2,
+        default=0.0,
+    )
+    owner = models.ForeignKey(
+        "account.User",
+        models.CASCADE,
+        related_name="checks"
     )
 
     class Meta:
@@ -20,16 +26,22 @@ class Check(DataTimeAbstract):
 
 
 class CheckProduct(DataTimeAbstract):
-    check = models.ForeignKey(
+    linked_check = models.ForeignKey(
         "Check",
         models.CASCADE,
         related_name="check_products",
+        verbose_name="чек",
     )
     product = models.ForeignKey(
         "products.Product",
         models.CASCADE,
         related_name="check_products",
         verbose_name="продукт",
+    )
+    owner = models.ForeignKey(
+        "account.User",
+        models.CASCADE,
+        related_name="check_products"
     )
     price = models.DecimalField(
         "Цена",
@@ -42,7 +54,7 @@ class CheckProduct(DataTimeAbstract):
         default=1,
     )
     total_price = models.DecimalField(
-        "Цена",
+        "Общая цена",
         max_digits=10,
         decimal_places=2,
         default=0.0,
@@ -53,4 +65,4 @@ class CheckProduct(DataTimeAbstract):
         verbose_name_plural = "продуты чеков"
 
     def __str__(self):
-        return f"{str(self.product_id.pk)} {str(self.total_price)}"
+        return f"{str(self.linked_check.pk)} {str(self.total_price)}"

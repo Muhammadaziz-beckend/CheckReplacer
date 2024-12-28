@@ -5,6 +5,11 @@ from django_resized import ResizedImageField
 
 
 class Product(DataTimeAbstract):
+    owner = models.ForeignKey(
+        "account.User",
+        models.CASCADE,
+        related_name="products",
+    )
     img = ResizedImageField(
         "Изображения",
         size=[1020, 950],
@@ -25,8 +30,8 @@ class Product(DataTimeAbstract):
     )
 
     class Meta:
-        verbose_name = 'Продукт' # Товар
-        verbose_name_plural = 'Продукты'
+        verbose_name = "Продукт"  # Товар
+        verbose_name_plural = "Продукты"
 
     def __str__(self):
         return self.name

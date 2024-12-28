@@ -7,20 +7,24 @@ from .models import Check, CheckProduct
 class CheckAdmin(admin.ModelAdmin):
     list_display = (
         "id",
+        "owner",
         "total_price",
         "update_dt",
         "create_dt",
     )
     list_display_links = (
         "id",
+        "owner",
         "total_price",
         "update_dt",
         "create_dt",
     )
     list_filter = (
+        "owner",
         "update_dt",
         "create_dt",
     )
+    readonly_fields = ("total_price",)
     search_fields = (
         "id",
         "total_price",
@@ -31,8 +35,9 @@ class CheckAdmin(admin.ModelAdmin):
 class CheckProductAdmin(admin.ModelAdmin):
     list_display = (
         "id",
-        "check__pk",
-        "product__pk",
+        "owner",
+        "linked_check__id",
+        "product__id",
         "price",
         "count",
         "total_price",
@@ -41,18 +46,22 @@ class CheckProductAdmin(admin.ModelAdmin):
     )
     list_display_links = (
         "id",
-        "check__pk",
-        "product__pk",
+        "owner",
+        "linked_check__id",
+        "product__id",
         "price",
         "count",
         "total_price",
         "update_dt",
         "create_dt",
     )
+    readonly_fields = (
+        "price",
+        "total_price",
+    )
     list_filter = (
-        "check",
         "product",
+        "linked_check",
+        "owner",
     )
-    search_fields = (
-        "check__pk",
-    )
+    search_fields = ("linked_check__id",)

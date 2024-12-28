@@ -8,6 +8,7 @@ from .models import Product
 class ProductAdmin(admin.ModelAdmin):
     list_display = (
         "product_img",
+        "owner",
         "id",
         "name",
         "price",
@@ -16,6 +17,7 @@ class ProductAdmin(admin.ModelAdmin):
     )
     list_display_links = (
         "id",
+        "owner",
         "name",
         "price",
         "update_dt",
@@ -24,6 +26,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = (
         "update_dt",
         "create_dt",
+        "owner",
     )
     search_fields = (
         "name",
