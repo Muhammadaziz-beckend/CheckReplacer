@@ -45,6 +45,11 @@ INSTALLED_APPS = [
     "django_cleanup.apps.CleanupConfig",
     "django_filters",
     "corsheaders",
+    "phonenumber_field",
+    # apps
+    "apps.account",
+    "apps.check",
+    "apps.products",
 ]
 
 MIDDLEWARE = [
